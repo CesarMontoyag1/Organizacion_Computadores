@@ -1,0 +1,82 @@
+class Paddle {
+    field int location;
+
+    constructor Paddle new(int initLocation) {
+        let location = initLocation;
+        return this;
+    }
+
+    method void draw() {
+        var int memAddress;
+        let memAddress = 16384 + location;
+
+        // Dibujar el paddle en la nueva ubicación
+        // column 0
+        do Memory.poke(memAddress, -1);
+        do Memory.poke(memAddress + 32, -1);
+        do Memory.poke(memAddress + 64, -1);
+        
+        // column 1
+        do Memory.poke(memAddress + 1, -1);
+        do Memory.poke(memAddress + 33, -1);
+        do Memory.poke(memAddress + 65, -1);
+        
+        // column 2
+        do Memory.poke(memAddress + 2, -1);
+        do Memory.poke(memAddress + 34, -1);
+        do Memory.poke(memAddress + 66, -1);
+        
+        // column 3
+        do Memory.poke(memAddress + 3, -1);
+        do Memory.poke(memAddress + 35, -1);
+        do Memory.poke(memAddress + 67, -1);
+
+        return;
+    }
+
+    method void erase() {
+        var int memAddress;
+        let memAddress = 16384 + location;
+
+        // Borrar el paddle en la posición anterior
+        // column 0
+        do Memory.poke(memAddress, 0);
+        do Memory.poke(memAddress + 32, 0);
+        do Memory.poke(memAddress + 64, 0);
+        
+        // column 1
+        do Memory.poke(memAddress + 1, 0);
+        do Memory.poke(memAddress + 33, 0);
+        do Memory.poke(memAddress + 65, 0);
+        
+        // column 2
+        do Memory.poke(memAddress + 2, 0);
+        do Memory.poke(memAddress + 34, 0);
+        do Memory.poke(memAddress + 66, 0);
+        
+        // column 3
+        do Memory.poke(memAddress + 3, 0);
+        do Memory.poke(memAddress + 35, 0);
+        do Memory.poke(memAddress + 67, 0);
+
+        return;
+    }
+
+    method void moveLeft() {
+        if (location > 7680) {
+            do erase();  // Borra la posición actual
+            let location = location - 1;  // Mueve hacia la izquierda
+            do draw();  // Redibuja en la nueva posición
+        }
+        return;
+    }
+
+    method void moveRight() {
+        if (location < 7708) {
+            do erase();  // Borra la posición actual
+            let location = location + 1;  // Mueve hacia la derecha
+            do draw();  // Redibuja en la nueva posición
+        }
+        return;
+    }
+}

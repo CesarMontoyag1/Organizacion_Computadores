@@ -1,0 +1,65 @@
+class Brick {
+    field int x;  // columna (0 a 7)
+    field int y;  // fila (0 a 2)
+
+    constructor Brick new(int intx, int inty) {
+        let x = intx;
+        let y = inty;
+        return this;
+    }
+
+    method int calculateLocation() {
+        // Cada ladrillo ocupa 4 palabras de ancho y 8 filas de alto
+        // 16384 es la base de la memoria de pantalla
+        // y * 512 mueve abajo el número de filas (512 = 32 palabras * 16 filas por ladrillo)
+        // x * 4 mueve a la derecha el número de columnas (4 palabras por ladrillo)
+        return (y * 512) + (x * 4);
+    }
+
+    method void draw() {
+        var int base;
+        let base = 16384 + calculateLocation();
+
+        // column 0
+        do Memory.poke(base, -1);
+        do Memory.poke(base + 32, -1);
+        do Memory.poke(base + 64, -1);
+        do Memory.poke(base + 96, -1);
+        do Memory.poke(base + 128, -1);
+        do Memory.poke(base + 160, -1);
+        do Memory.poke(base + 192, -1);
+        do Memory.poke(base + 224, -1);
+
+        // column 1
+        do Memory.poke(base + 1, -1);
+        do Memory.poke(base + 33, -1);
+        do Memory.poke(base + 65, -1);
+        do Memory.poke(base + 97, -1);
+        do Memory.poke(base + 129, -1);
+        do Memory.poke(base + 161, -1);
+        do Memory.poke(base + 193, -1);
+        do Memory.poke(base + 225, -1);
+
+        // column 2
+        do Memory.poke(base + 2, -1);
+        do Memory.poke(base + 34, -1);
+        do Memory.poke(base + 66, -1);
+        do Memory.poke(base + 98, -1);
+        do Memory.poke(base + 130, -1);
+        do Memory.poke(base + 162, -1);
+        do Memory.poke(base + 194, -1);
+        do Memory.poke(base + 226, -1);
+
+        // column 3 con valor especial (4095)
+        do Memory.poke(base + 3, 4095);
+        do Memory.poke(base + 35, 4095);
+        do Memory.poke(base + 67, 4095);
+        do Memory.poke(base + 99, 4095);
+        do Memory.poke(base + 131, 4095);
+        do Memory.poke(base + 163, 4095);
+        do Memory.poke(base + 195, 4095);
+        do Memory.poke(base + 227, 4095);
+
+        return;
+    }
+}

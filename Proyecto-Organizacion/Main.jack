@@ -1,0 +1,41 @@
+class Main {
+    function void main() {
+        var Brick brick;
+        var int row;
+        var int col;
+        var Paddle paddle;
+        var int key;
+        var Ball ball;
+
+        // 3 filas
+        let row = 0;
+        while (row < 4) {
+            // 8 columnas
+            let col = 0;
+            while (col < 8) {
+                let brick = Brick.new(col, row);
+                do brick.draw();
+                let col = col + 1;
+            }
+            let row = row + 1;
+        }
+
+        // Crear la pelota justo arriba del paddle
+        let ball = Ball.new(7183);
+        do ball.draw();
+
+        // Dibuja el paddle
+        let paddle = Paddle.new(7694);
+        do paddle.draw();
+
+        // Bucle de juego
+        while (true) {
+            let key = Keyboard.keyPressed();
+            if (key = 130) { do paddle.moveLeft(); }
+            if (key = 132) { do paddle.moveRight(); }
+            do Sys.wait(20);
+        }
+
+        return;
+    }
+}
