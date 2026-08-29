@@ -1,1 +1,1 @@
-# Organizacion_Computadores
+# Organizacion de Computadores
